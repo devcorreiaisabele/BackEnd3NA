@@ -57,4 +57,20 @@ public class VinculoNutriPaciente {
     public void setStatus(String status) { this.status = status; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public Long getUsuarioId() {
+    return usuario != null ? usuario.getIdUser() : null;
+}
+
+public Long getNutricionistaId() {
+    return nutricionista != null ? nutricionista.getIdNutri() : null;
+}
+
+public String getNutricionistaNome() {
+    return nutricionista != null ? nutricionista.getNomeCompleto() : null;
+}
+
+public String getNutricionistaEspecialidade() {
+    return nutricionista != null ? nutricionista.getEspecialidadePrincipal() : null;
+}
 }
