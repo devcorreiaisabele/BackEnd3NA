@@ -58,11 +58,11 @@ public class VinculoNutriPaciente {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public Long getUsuarioId() {
+public Long getFkIdUser() {
     return usuario != null ? usuario.getIdUser() : null;
 }
 
-public Long getNutricionistaId() {
+public Long getFkIdNutri() {
     return nutricionista != null ? nutricionista.getIdNutri() : null;
 }
 
