@@ -57,6 +57,10 @@ public class PlanoReceita {
         return receita != null ? receita.getCalorias() : null;
     }
 
+    public String getReceitaImagemUrl() {
+    return receita != null ? receita.getImagemUrl() : null;
+    }
+    
      @Column(name = "tipo_refeicao", length = 50)
     private String tipoRefeicao;
 
