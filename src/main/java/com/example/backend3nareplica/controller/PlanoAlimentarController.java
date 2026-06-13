@@ -56,7 +56,7 @@ public class PlanoAlimentarController {
     public ResponseEntity<List<PlanoAlimentar>> getPlanosPorNutricionista(@PathVariable Long idNutri) {
         return ResponseEntity.ok(planoAlimentarRepository.findByNutricionistaIdNutri(idNutri));
     }
-    @GetMapping("/usuario/{idUser}/ativo")
+    @GetMapping("/ativo/usuario/{idUser}")
 public ResponseEntity<?> getOuCriarPlanoUsuario(@PathVariable Long idUser) {
     Usuario usuario = usuarioRepository.findById(idUser).orElse(null);
     if (usuario == null) return ResponseEntity.status(404).body("Usuário não encontrado.");
