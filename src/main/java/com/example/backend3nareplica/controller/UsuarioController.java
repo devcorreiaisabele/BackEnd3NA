@@ -37,25 +37,26 @@ public class UsuarioController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<String> putUsuario(@PathVariable Long id, @RequestBody Usuario dados) {
-        return usuarioRepository.findById(id).map(u -> {
-            u.setNomeCompleto(dados.getNomeCompleto());
-            u.setEmail(dados.getEmail());
-            u.setObjetivoSaude(dados.getObjetivoSaude());
-            u.setTipoDieta(dados.getTipoDieta());
-            u.setRestricoesReligiosas(dados.getRestricoesReligiosas());
-            u.setAlergias(dados.getAlergias());
-            u.setRotinaAtividade(dados.getRotinaAtividade());
-            u.setPesoAtual(dados.getPesoAtual());
-            u.setPesoMeta(dados.getPesoMeta());
-            u.setAltura(dados.getAltura());
-            u.setStatus(dados.getStatus());
-            if (dados.getFotoUrl() != null) u.setFotoUrl(dados.getFotoUrl()); // NOVO
-            usuarioRepository.save(u);
-            return ResponseEntity.ok("Usuário atualizado com sucesso!");
-        }).orElse(ResponseEntity.notFound().build());
-    }
+  @PutMapping("/{id}")
+public ResponseEntity<String> putUsuario(@PathVariable Long id, @RequestBody Usuario dados) {
+    return usuarioRepository.findById(id).map(u -> {
+        u.setNomeCompleto(dados.getNomeCompleto());
+        u.setEmail(dados.getEmail());
+        u.setObjetivoSaude(dados.getObjetivoSaude());
+        u.setTipoDieta(dados.getTipoDieta());
+        u.setRestricoesReligiosas(dados.getRestricoesReligiosas());
+        u.setAlergias(dados.getAlergias());
+        u.setRotinaAtividade(dados.getRotinaAtividade());
+        u.setPesoAtual(dados.getPesoAtual());
+        u.setPesoMeta(dados.getPesoMeta());
+        u.setAltura(dados.getAltura());
+        u.setStatus(dados.getStatus());
+        if (dados.getGenero() != null) u.setGenero(dados.getGenero()); // <-- ADICIONA
+        if (dados.getFotoUrl() != null) u.setFotoUrl(dados.getFotoUrl());
+        usuarioRepository.save(u);
+        return ResponseEntity.ok("Usuário atualizado com sucesso!");
+    }).orElse(ResponseEntity.notFound().build());
+}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
         if (usuarioRepository.existsById(id)) {
