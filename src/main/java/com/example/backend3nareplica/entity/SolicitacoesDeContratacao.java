@@ -47,4 +47,8 @@ public class SolicitacoesDeContratacao {
     public void setStatus(String status) { this.status = status; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public Long getDebugUsuarioId() {
+    return usuario != null ? usuario.getIdUser() : null;
+}
 }
