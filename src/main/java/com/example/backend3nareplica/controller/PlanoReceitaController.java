@@ -43,6 +43,32 @@ public class PlanoReceitaController {
         return ResponseEntity.status(201).body("Receita adicionada ao plano!");
     }
 
+    @PostMapping("/upsert")
+public ResponseEntity<?> upsertReceita(@RequestBody java.util.Map<String, Object> body) {
+    Long planoId        = ((Number) body.get("planoId")).longValue();
+    Long receitaId      = ((Number) body.get("receitaId")).longValue();
+    String tipoRefeicao = (String) body.get("tipoRefeicao");
+
+    PlanoAlimentar plano   = planoAlimentarRepository.findById(planoId).orElse(null);
+    Receita        receita = receitaRepository.findById(receitaId).orElse(null);
+
+    if (plano == null)   return ResponseEntity.status(404).body("Plano não encontrado.");
+    if (receita == null) return ResponseEntity.status(404).body("Receita não encontrada.");
+    List<PlanoReceita> existentes = planoReceitaRepository.findByPlanoIdPlano(planoId);
+    existentes.stream()
+        .filter(pr -> tipoRefeicao.equals(pr.getTipoRefeicao()))
+        .forEach(pr -> planoReceitaRepository.delete(pr));
+
+    PlanoReceita pr = new PlanoReceita();
+    pr.setPlano(plano);
+    pr.setReceita(receita);
+    pr.setDataInclusao(LocalDate.now());
+    pr.setTipoRefeicao(tipoRefeicao);
+    planoReceitaRepository.save(pr);
+
+    return ResponseEntity.status(201).body("Receita atualizada no plano!");
+}
+
     @GetMapping("/plano/{idPlano}")
     public ResponseEntity<List<PlanoReceita>> getReceitasDoPlano(@PathVariable Long idPlano) {
         return ResponseEntity.ok(planoReceitaRepository.findByPlanoIdPlano(idPlano));
