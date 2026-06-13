@@ -74,7 +74,13 @@ public class Usuario {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    // ===== RELACIONAMENTOS =====
+    @Column(name = "foto_url")
+    private String fotoUrl;
+
+    public String getFotoUrl() { return fotoUrl; }
+    public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Evolucao> evolucoes = new ArrayList<>();
