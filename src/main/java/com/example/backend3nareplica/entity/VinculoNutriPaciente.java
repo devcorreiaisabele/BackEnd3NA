@@ -73,4 +73,7 @@ public String getNutricionistaNome() {
 public String getNutricionistaEspecialidade() {
     return nutricionista != null ? nutricionista.getEspecialidadePrincipal() : null;
 }
+    public String getUsuarioNome() {
+    return usuario != null ? usuario.getNomeCompleto() : null;
+}
 }
