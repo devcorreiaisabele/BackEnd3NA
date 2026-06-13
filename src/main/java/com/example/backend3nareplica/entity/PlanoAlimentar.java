@@ -70,4 +70,21 @@ public class PlanoAlimentar {
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public Set<PlanoReceita> getPlanoReceitas() { return planoReceitas; }
     public void setPlanoReceitas(Set<PlanoReceita> planoReceitas) { this.planoReceitas = planoReceitas; }
+
+
+    public Long getFkIdUser() {
+    return usuario != null ? usuario.getIdUser() : null;
+}
+
+public Long getFkIdNutri() {
+    return nutricionista != null ? nutricionista.getIdNutri() : null;
+}
+
+public String getUsuarioNome() {
+    return usuario != null ? usuario.getNomeCompleto() : null;
+}
+
+public String getNutricionistaNome() {
+    return nutricionista != null ? nutricionista.getNomeCompleto() : null;
+}
 }
