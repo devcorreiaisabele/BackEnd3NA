@@ -34,8 +34,13 @@ public class Nutricionista {
     private Integer totalPacientes = 0;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+    @Column(name = "foto_url")
+    private String fotoUrl;
 
-    // ===== RELACIONAMENTOS =====
+    public String getFotoUrl() { return fotoUrl; }
+    public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "nutricionista", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Receita> receitas = new ArrayList<>();
@@ -54,7 +59,7 @@ public class Nutricionista {
 
     public Nutricionista() {}
 
-    // ===== GETTERS E SETTERS BÁSICOS =====
+
     public Long getIdNutri() { return idNutri; }
     public void setIdNutri(Long idNutri) { this.idNutri = idNutri; }
     public String getNomeCompleto() { return nomeCompleto; }
@@ -78,7 +83,6 @@ public class Nutricionista {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    // ===== GETTERS E SETTERS RELACIONAMENTOS =====
     public List<Receita> getReceitas() { return receitas; }
     public void setReceitas(List<Receita> receitas) { this.receitas = receitas; }
     public List<PlanoAlimentar> getPlanos() { return planos; }
