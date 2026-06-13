@@ -1,5 +1,4 @@
 package com.example.backend3nareplica.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,20 +6,16 @@ import java.util.List;
 import com.example.backend3nareplica.entity.Usuario;
 import com.example.backend3nareplica.repository.UsuarioRepository;
 import jakarta.validation.Valid;
-
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
-
     @Autowired
     private UsuarioRepository usuarioRepository;
-
     @PostMapping
     public ResponseEntity<String> criarUsuario(@Valid @RequestBody Usuario usuario) {
         usuarioRepository.save(usuario);
         return ResponseEntity.status(201).body("Usuário criado com sucesso!");
     }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Usuario dados) {
         return usuarioRepository.findByEmail(dados.getEmail())
@@ -32,19 +27,16 @@ public class UsuarioController {
             })
             .orElse(ResponseEntity.status(404).body("Usuário não encontrado!"));
     }
-
     @GetMapping
     public ResponseEntity<List<Usuario>> getUsuarios() {
         return ResponseEntity.ok(usuarioRepository.findAll());
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getUsuarioPorId(@PathVariable Long id) {
         return usuarioRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<String> putUsuario(@PathVariable Long id, @RequestBody Usuario dados) {
         return usuarioRepository.findById(id).map(u -> {
@@ -59,11 +51,11 @@ public class UsuarioController {
             u.setPesoMeta(dados.getPesoMeta());
             u.setAltura(dados.getAltura());
             u.setStatus(dados.getStatus());
+            if (dados.getFotoUrl() != null) u.setFotoUrl(dados.getFotoUrl()); // NOVO
             usuarioRepository.save(u);
             return ResponseEntity.ok("Usuário atualizado com sucesso!");
         }).orElse(ResponseEntity.notFound().build());
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
         if (usuarioRepository.existsById(id)) {
