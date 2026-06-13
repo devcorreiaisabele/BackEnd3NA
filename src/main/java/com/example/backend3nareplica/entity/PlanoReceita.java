@@ -56,4 +56,10 @@ public class PlanoReceita {
     public java.math.BigDecimal getReceitaCalorias() {
         return receita != null ? receita.getCalorias() : null;
     }
+
+     @Column(name = "tipo_refeicao", length = 50)
+    private String tipoRefeicao;
+
+    public String getTipoRefeicao() { return tipoRefeicao; }
+    public void setTipoRefeicao(String tipoRefeicao) { this.tipoRefeicao = tipoRefeicao; }
 }
