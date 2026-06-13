@@ -40,4 +40,20 @@ public class PlanoReceita {
     public void setDataInclusao(LocalDate dataInclusao) { this.dataInclusao = dataInclusao; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public Long getFkIdPlano() {
+        return plano != null ? plano.getIdPlano() : null;
+    }
+    public Long getFkIdReceita() {
+        return receita != null ? receita.getIdReceita() : null;
+    }
+    public String getReceitaTitulo() {
+        return receita != null ? receita.getTitulo() : null;
+    }
+    public String getReceitaIngredientes() {
+        return receita != null ? receita.getIngredientes() : null;
+    }
+    public java.math.BigDecimal getReceitaCalorias() {
+        return receita != null ? receita.getCalorias() : null;
+    }
 }
