@@ -1,5 +1,4 @@
 package com.example.backend3nareplica.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +17,16 @@ public class PlanoReceitaController {
 
     @Autowired
     private PlanoReceitaRepository planoReceitaRepository;
-
     @Autowired
     private PlanoAlimentarRepository planoAlimentarRepository;
-
     @Autowired
     private ReceitaRepository receitaRepository;
 
     @PostMapping
-    public ResponseEntity<?> adicionarReceita(@RequestBody java.util.Map<String, Long> body) {
-        Long planoId   = body.get("planoId");
-        Long receitaId = body.get("receitaId");
+    public ResponseEntity<?> adicionarReceita(@RequestBody java.util.Map<String, Object> body) {
+        Long planoId    = ((Number) body.get("planoId")).longValue();
+        Long receitaId  = ((Number) body.get("receitaId")).longValue();
+        String tipoRefeicao = (String) body.get("tipoRefeicao");
 
         PlanoAlimentar plano   = planoAlimentarRepository.findById(planoId).orElse(null);
         Receita        receita = receitaRepository.findById(receitaId).orElse(null);
@@ -40,7 +38,7 @@ public class PlanoReceitaController {
         pr.setPlano(plano);
         pr.setReceita(receita);
         pr.setDataInclusao(LocalDate.now());
-
+        pr.setTipoRefeicao(tipoRefeicao);
         planoReceitaRepository.save(pr);
         return ResponseEntity.status(201).body("Receita adicionada ao plano!");
     }
