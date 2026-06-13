@@ -19,7 +19,7 @@ public class PlanoAlimentar {
     private Usuario usuario;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
-    @JoinColumn(name = "fk_id_nutri_criador", nullable = false)
+    @JoinColumn(name = "fk_id_nutri_criador", nullable = true)
     private Nutricionista nutricionista;
     @Column(name = "calorias_alvo", precision = 8, scale = 2)
     private BigDecimal caloriasAlvo;
