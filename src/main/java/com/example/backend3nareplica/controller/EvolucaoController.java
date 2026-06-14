@@ -1,84 +1,51 @@
 package com.example.backend3nareplica.controller;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.backend3nareplica.entity.Grupo;
+import com.example.backend3nareplica.repository.GrupoRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.backend3nareplica.dto.EvolucaoRequestDTO;
-import com.example.backend3nareplica.entity.Evolucao;
-import com.example.backend3nareplica.entity.Usuario;
-import com.example.backend3nareplica.repository.EvolucaoRepository;
-import com.example.backend3nareplica.repository.UsuarioRepository;
+import java.util.Optional;
 
-@SuppressWarnings("unused")
 @RestController
-@RequestMapping("/evolucao")
-public class EvolucaoController {
+@RequestMapping("/api/grupo")
+@Tag(name = "Grupo", description = "Operações relacionadas a grupos")
+public class GrupoController {
 
-    @Autowired
-    private EvolucaoRepository evolucaoRepository;
+    private final GrupoRepository grupoRepository;
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @PostMapping
-    public ResponseEntity<String> criarEvolucao(@RequestBody EvolucaoRequestDTO dto) {
-    	Usuario usuario = usuarioRepository.findById(dto.getFkIdUser()).orElse(null);
-        if (usuario == null) {
-            return ResponseEntity.status(404).body("Usuário não encontrado.");
-        }
-
-        Evolucao evolucao = new Evolucao();
-        evolucao.setUsuario(usuario);
-        evolucao.setDataRegistro(LocalDate.parse(dto.getDataRegistro()));
-        evolucao.setPesoRegistrado(dto.getPesoRegistrado());
-        evolucao.setMetaProgresso(dto.getMetaProgresso());
-        evolucao.setCreatedAt(LocalDateTime.now());
-
-        evolucaoRepository.save(evolucao);
-        return ResponseEntity.status(201).body("Evolução registrada com sucesso!");
+    public GrupoController(GrupoRepository grupoRepository) {
+        this.grupoRepository = grupoRepository;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Evolucao>> getEvolucoes() {
-        return ResponseEntity.ok(evolucaoRepository.findAll());
+    @PostMapping
+    @Operation(summary = "Criar um novo Grupo", description = "Cria um novo Grupo com os detalhes fornecidos.")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Grupo criado com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Dados inválidos")
+    })
+    public ResponseEntity<Grupo> createGrupo(@RequestBody Grupo grupo) {
+        Grupo salvo = grupoRepository.save(grupo);
+        return ResponseEntity.status(201).body(salvo);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Evolucao> getEvolucaoPorId(@PathVariable Long id) {
-        return evolucaoRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/usuario/{idUser}")
-    public ResponseEntity<List<Evolucao>> getEvolucoesPorUsuario(@PathVariable Long idUser) {
-        return ResponseEntity.ok(evolucaoRepository.findByUsuarioIdUser(idUser));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<String> putEvolucao(@PathVariable Long id, @RequestBody Evolucao dados) {
-        return evolucaoRepository.findById(id).map(e -> {
-            e.setDataRegistro(dados.getDataRegistro());
-            e.setPesoRegistrado(dados.getPesoRegistrado());
-            e.setMetaProgresso(dados.getMetaProgresso());
-            e.setTotalCaloriasConsumidas(dados.getTotalCaloriasConsumidas());
-            e.setRefeicoesConcluidasI(dados.getRefeicoesConcluidasI());
-            evolucaoRepository.save(e);
-            return ResponseEntity.ok("Evolução atualizada com sucesso!");
-        }).orElse(ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEvolucao(@PathVariable Long id) {
-        if (evolucaoRepository.existsById(id)) {
-            evolucaoRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+    @Operation(summary = "Buscar Grupo por ID", description = "Obtém um Grupo pelo seu ID.")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Grupo encontrado"),
+        @ApiResponse(responseCode = "404", description = "Grupo não encontrado")
+    })
+    public ResponseEntity<Grupo> getGrupo(
+        @Parameter(description = "ID do grupo a ser buscado", example = "1")
+        @PathVariable Long id
+    ) {
+        Optional<Grupo> grupo = grupoRepository.findById(id);
+        return grupo.map(ResponseEntity::ok)
+                     .orElse(ResponseEntity.notFound().build());
     }
 }
