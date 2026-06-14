@@ -52,6 +52,7 @@ public ResponseEntity<String> putUsuario(@PathVariable Long id, @RequestBody Usu
         u.setPesoMeta(dados.getPesoMeta());
         u.setAltura(dados.getAltura());
         u.setStatus(dados.getStatus());
+        u.setCaloriasDiarias(dados.getCaloriasDiarias());
         if (dados.getGenero() != null) u.setGenero(dados.getGenero()); // <-- ADICIONA
         if (dados.getFotoUrl() != null) u.setFotoUrl(dados.getFotoUrl());
         usuarioRepository.save(u);
