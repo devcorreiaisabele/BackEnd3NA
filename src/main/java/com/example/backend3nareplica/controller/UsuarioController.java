@@ -42,6 +42,7 @@ public ResponseEntity<String> putUsuario(@PathVariable Long id, @RequestBody Usu
     return usuarioRepository.findById(id).map(u -> {
         u.setNomeCompleto(dados.getNomeCompleto());
         u.setEmail(dados.getEmail());
+        u.setDataNascimento(dados.getDataNascimento());
         u.setObjetivoSaude(dados.getObjetivoSaude());
         u.setTipoDieta(dados.getTipoDieta());
         u.setRestricoesReligiosas(dados.getRestricoesReligiosas());
