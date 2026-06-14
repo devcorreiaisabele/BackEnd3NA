@@ -68,6 +68,12 @@ public class Usuario {
     @Column(name = "genero", nullable = true, length = 50)
     private Genero genero;
 
+    @Column(name = "calorias_diarias")
+private Integer caloriasDiarias;
+
+public Integer getCaloriasDiarias() { return caloriasDiarias; }
+public void setCaloriasDiarias(Integer caloriasDiarias) { this.caloriasDiarias = caloriasDiarias; }
+
     @Column(name = "status", length = 20)
     private String status = "Ativo";
 
