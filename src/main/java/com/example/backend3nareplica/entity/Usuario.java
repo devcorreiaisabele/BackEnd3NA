@@ -86,6 +86,36 @@ public void setCaloriasDiarias(Integer caloriasDiarias) { this.caloriasDiarias =
     public String getFotoUrl() { return fotoUrl; }
     public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
 
+    @Column(name = "calorias_consumidas", nullable = false, precision = 10, scale = 2)
+    private BigDecimal caloriasConsumidas = BigDecimal.ZERO;
+
+    @Column(name = "proteinas_consumidas", nullable = false, precision = 10, scale = 2)
+    private BigDecimal proteinasConsumidas = BigDecimal.ZERO;
+
+    @Column(name = "carbos_consumidos", nullable = false, precision = 10, scale = 2)
+    private BigDecimal carbosConsumidos = BigDecimal.ZERO;
+
+    @Column(name = "gorduras_consumidas", nullable = false, precision = 10, scale = 2)
+    private BigDecimal gordurasConsumidas = BigDecimal.ZERO;
+
+    @Column(name = "data_consumo")
+    private LocalDate dataConsumo;
+
+    public BigDecimal getCaloriasConsumidas() { return caloriasConsumidas; }
+    public void setCaloriasConsumidas(BigDecimal caloriasConsumidas) { this.caloriasConsumidas = caloriasConsumidas; }
+
+    public BigDecimal getProteinasConsumidas() { return proteinasConsumidas; }
+    public void setProteinasConsumidas(BigDecimal proteinasConsumidas) { this.proteinasConsumidas = proteinasConsumidas; }
+
+    public BigDecimal getCarbosConsumidos() { return carbosConsumidos; }
+    public void setCarbosConsumidos(BigDecimal carbosConsumidos) { this.carbosConsumidos = carbosConsumidos; }
+
+    public BigDecimal getGordurasConsumidas() { return gordurasConsumidas; }
+    public void setGordurasConsumidas(BigDecimal gordurasConsumidas) { this.gordurasConsumidas = gordurasConsumidas; }
+
+    public LocalDate getDataConsumo() { return dataConsumo; }
+    public void setDataConsumo(LocalDate dataConsumo) { this.dataConsumo = dataConsumo; }
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
