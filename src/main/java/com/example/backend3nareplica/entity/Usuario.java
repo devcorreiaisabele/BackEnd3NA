@@ -80,22 +80,18 @@ public class Usuario {
     @Column(name = "foto_url")
     private String fotoUrl;
 
-    // ===== Consumo diário (NOT NULL com default 0 no banco) =====
+    // ===== Consumo diário (NOT NULL; default 0 já existe no banco) =====
 
-    @Column(name = "calorias_consumidas", nullable = false,
-            columnDefinition = "numeric(10,2) default 0")
+    @Column(name = "calorias_consumidas", nullable = false, precision = 10, scale = 2)
     private BigDecimal caloriasConsumidas = BigDecimal.ZERO;
 
-    @Column(name = "proteinas_consumidas", nullable = false,
-            columnDefinition = "numeric(10,2) default 0")
+    @Column(name = "proteinas_consumidas", nullable = false, precision = 10, scale = 2)
     private BigDecimal proteinasConsumidas = BigDecimal.ZERO;
 
-    @Column(name = "carbos_consumidos", nullable = false,
-            columnDefinition = "numeric(10,2) default 0")
+    @Column(name = "carbos_consumidos", nullable = false, precision = 10, scale = 2)
     private BigDecimal carbosConsumidos = BigDecimal.ZERO;
 
-    @Column(name = "gorduras_consumidas", nullable = false,
-            columnDefinition = "numeric(10,2) default 0")
+    @Column(name = "gorduras_consumidas", nullable = false, precision = 10, scale = 2)
     private BigDecimal gordurasConsumidas = BigDecimal.ZERO;
 
     @Column(name = "data_consumo")
