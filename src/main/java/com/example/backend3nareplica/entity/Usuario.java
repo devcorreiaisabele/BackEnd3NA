@@ -69,10 +69,7 @@ public class Usuario {
     private Genero genero;
 
     @Column(name = "calorias_diarias")
-private Integer caloriasDiarias;
-
-public Integer getCaloriasDiarias() { return caloriasDiarias; }
-public void setCaloriasDiarias(Integer caloriasDiarias) { this.caloriasDiarias = caloriasDiarias; }
+    private Integer caloriasDiarias;
 
     @Column(name = "status", length = 20)
     private String status = "Ativo";
@@ -83,39 +80,28 @@ public void setCaloriasDiarias(Integer caloriasDiarias) { this.caloriasDiarias =
     @Column(name = "foto_url")
     private String fotoUrl;
 
-    public String getFotoUrl() { return fotoUrl; }
-    public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
+    // ===== Consumo diário (NOT NULL com default 0 no banco) =====
 
-    @Column(name = "calorias_consumidas", nullable = false, precision = 10, scale = 2)
+    @Column(name = "calorias_consumidas", nullable = false,
+            columnDefinition = "numeric(10,2) default 0")
     private BigDecimal caloriasConsumidas = BigDecimal.ZERO;
 
-    @Column(name = "proteinas_consumidas", nullable = false, precision = 10, scale = 2)
+    @Column(name = "proteinas_consumidas", nullable = false,
+            columnDefinition = "numeric(10,2) default 0")
     private BigDecimal proteinasConsumidas = BigDecimal.ZERO;
 
-    @Column(name = "carbos_consumidos", nullable = false, precision = 10, scale = 2)
+    @Column(name = "carbos_consumidos", nullable = false,
+            columnDefinition = "numeric(10,2) default 0")
     private BigDecimal carbosConsumidos = BigDecimal.ZERO;
 
-    @Column(name = "gorduras_consumidas", nullable = false, precision = 10, scale = 2)
+    @Column(name = "gorduras_consumidas", nullable = false,
+            columnDefinition = "numeric(10,2) default 0")
     private BigDecimal gordurasConsumidas = BigDecimal.ZERO;
 
     @Column(name = "data_consumo")
     private LocalDate dataConsumo;
 
-    public BigDecimal getCaloriasConsumidas() { return caloriasConsumidas; }
-    public void setCaloriasConsumidas(BigDecimal caloriasConsumidas) { this.caloriasConsumidas = caloriasConsumidas; }
-
-    public BigDecimal getProteinasConsumidas() { return proteinasConsumidas; }
-    public void setProteinasConsumidas(BigDecimal proteinasConsumidas) { this.proteinasConsumidas = proteinasConsumidas; }
-
-    public BigDecimal getCarbosConsumidos() { return carbosConsumidos; }
-    public void setCarbosConsumidos(BigDecimal carbosConsumidos) { this.carbosConsumidos = carbosConsumidos; }
-
-    public BigDecimal getGordurasConsumidas() { return gordurasConsumidas; }
-    public void setGordurasConsumidas(BigDecimal gordurasConsumidas) { this.gordurasConsumidas = gordurasConsumidas; }
-
-    public LocalDate getDataConsumo() { return dataConsumo; }
-    public void setDataConsumo(LocalDate dataConsumo) { this.dataConsumo = dataConsumo; }
-
+    // ===== Relacionamentos =====
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -135,66 +121,89 @@ public void setCaloriasDiarias(Integer caloriasDiarias) { this.caloriasDiarias =
 
     public Usuario() {}
 
+    // ===== Getters e Setters =====
+
     public Long getIdUser() { return idUser; }
     public void setIdUser(Long idUser) { this.idUser = idUser; }
-    
+
     public String getNomeCompleto() { return nomeCompleto; }
     public void setNomeCompleto(String nomeCompleto) { this.nomeCompleto = nomeCompleto; }
-    
+
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-    
+
     public String getSenhaHash() { return senhaHash; }
     public void setSenhaHash(String senhaHash) { this.senhaHash = senhaHash; }
-    
+
     public LocalDate getDataNascimento() { return dataNascimento; }
     public void setDataNascimento(LocalDate dataNascimento) { this.dataNascimento = dataNascimento; }
-    
+
     public BigDecimal getPesoInicial() { return pesoInicial; }
     public void setPesoInicial(BigDecimal pesoInicial) { this.pesoInicial = pesoInicial; }
-    
+
     public BigDecimal getPesoAtual() { return pesoAtual; }
     public void setPesoAtual(BigDecimal pesoAtual) { this.pesoAtual = pesoAtual; }
-    
+
     public BigDecimal getPesoMeta() { return pesoMeta; }
     public void setPesoMeta(BigDecimal pesoMeta) { this.pesoMeta = pesoMeta; }
-    
+
     public BigDecimal getAltura() { return altura; }
     public void setAltura(BigDecimal altura) { this.altura = altura; }
-    
+
     public String getObjetivoSaude() { return objetivoSaude; }
     public void setObjetivoSaude(String objetivoSaude) { this.objetivoSaude = objetivoSaude; }
-    
+
     public String getTipoDieta() { return tipoDieta; }
     public void setTipoDieta(String tipoDieta) { this.tipoDieta = tipoDieta; }
-    
+
     public String getRestricoesReligiosas() { return restricoesReligiosas; }
     public void setRestricoesReligiosas(String restricoesReligiosas) { this.restricoesReligiosas = restricoesReligiosas; }
-    
+
     public String getAlergias() { return alergias; }
     public void setAlergias(String alergias) { this.alergias = alergias; }
-    
+
     public String getRotinaAtividade() { return rotinaAtividade; }
     public void setRotinaAtividade(String rotinaAtividade) { this.rotinaAtividade = rotinaAtividade; }
 
     public Genero getGenero() { return genero; }
     public void setGenero(Genero genero) { this.genero = genero; }
-    
+
+    public Integer getCaloriasDiarias() { return caloriasDiarias; }
+    public void setCaloriasDiarias(Integer caloriasDiarias) { this.caloriasDiarias = caloriasDiarias; }
+
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-    
+
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
+    public String getFotoUrl() { return fotoUrl; }
+    public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
+
+    public BigDecimal getCaloriasConsumidas() { return caloriasConsumidas; }
+    public void setCaloriasConsumidas(BigDecimal caloriasConsumidas) { this.caloriasConsumidas = caloriasConsumidas; }
+
+    public BigDecimal getProteinasConsumidas() { return proteinasConsumidas; }
+    public void setProteinasConsumidas(BigDecimal proteinasConsumidas) { this.proteinasConsumidas = proteinasConsumidas; }
+
+    public BigDecimal getCarbosConsumidos() { return carbosConsumidos; }
+    public void setCarbosConsumidos(BigDecimal carbosConsumidos) { this.carbosConsumidos = carbosConsumidos; }
+
+    public BigDecimal getGordurasConsumidas() { return gordurasConsumidas; }
+    public void setGordurasConsumidas(BigDecimal gordurasConsumidas) { this.gordurasConsumidas = gordurasConsumidas; }
+
+    public LocalDate getDataConsumo() { return dataConsumo; }
+    public void setDataConsumo(LocalDate dataConsumo) { this.dataConsumo = dataConsumo; }
+
     public List<Evolucao> getEvolucoes() { return evolucoes; }
     public void setEvolucoes(List<Evolucao> evolucoes) { this.evolucoes = evolucoes; }
-    
+
     public List<VinculoNutriPaciente> getVinculos() { return vinculos; }
     public void setVinculos(List<VinculoNutriPaciente> vinculos) { this.vinculos = vinculos; }
-    
+
     public List<SolicitacoesDeContratacao> getSolicitacoes() { return solicitacoes; }
     public void setSolicitacoes(List<SolicitacoesDeContratacao> solicitacoes) { this.solicitacoes = solicitacoes; }
-    
+
     public List<PlanoAlimentar> getPlanos() { return planos; }
     public void setPlanos(List<PlanoAlimentar> planos) { this.planos = planos; }
 }
